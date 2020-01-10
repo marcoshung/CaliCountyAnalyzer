@@ -1,5 +1,4 @@
-#Creates a field with all counties in California
-#Also creates a .txt file for easy access
+# creates a .txt file with all county names for easy access
 import requests
 import xlwt
 import pandas as pd
@@ -11,8 +10,18 @@ url = "https://en.wikipedia.org/wiki/List_of_counties_in_California"
 response = requests.get(url)
 soup = BeautifulSoup(response.text, "html.parser")
 
-table = soup.find("table")
+table = soup.find("table", style = "text-align: center;")
+counties = []
 for row in table.select('tr'):
     name = row.find_all('th')
     for n in name:
-        print(n.text)
+        if "county" in n.text.lower():
+            counties.append(n.text.strip())
+#ignore first two data, bc they are titles
+counties.pop(0)
+counties.pop(0)
+print(counties)
+datafile = open("county list", "w+")
+
+for name in counties:
+    datafile.write(name + "\n")
