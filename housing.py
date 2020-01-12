@@ -1,4 +1,6 @@
 import requests
+import xlwt
+
 import pandas as pd
 pd.set_option('display.max_columns', None)  
 
@@ -37,6 +39,14 @@ for row in table.select('tr'):
         county.append(tds[0].text.strip())
         housingprice.append(tds[1].text.strip())
 
+#Read unlisted counties & housing prices
+unlistedprices = open("UnlistedHousingPrices.txt", "r")
+line  = unlistedprices.readline()
+while line:
+    values = line.split()
+    county.append(values[0])
+    housingprice.append(values[1])
+    line = unlistedprices.readline()
 datavalues = {"County Name" : county, "Housing Price" : housingprice}
 df = pd.DataFrame(datavalues)
 export_csv = df.to_csv (r'/Users/marcoshung/eclipse-workspace/CaliCountyAnalyzer/test.csv', index = None, header=True)

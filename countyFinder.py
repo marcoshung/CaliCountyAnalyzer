@@ -12,11 +12,16 @@ soup = BeautifulSoup(response.text, "html.parser")
 
 table = soup.find("table", style = "text-align: center;")
 counties = []
+population = []
 for row in table.select('tr'):
     name = row.find_all('th')
+    tds = row.find_all('td')
+    print(type(tds))
     for n in name:
         if "county" in n.text.lower():
             counties.append(n.text.strip())
+   
+
 #ignore first two data, bc they are titles
 counties.pop(0)
 counties.pop(0)
