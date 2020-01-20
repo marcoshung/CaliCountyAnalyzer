@@ -15,18 +15,19 @@ counties = []
 population = []
 for row in table.select('tr'):
     name = row.find_all('th')
-    tds = row.find_all('td')
-    print(type(tds))
     for n in name:
-        if "county" in n.text.lower():
-            counties.append(n.text.strip())
+        counties.append(n.text.strip())
    
 
 #ignore first two data, bc they are titles
-counties.pop(0)
-counties.pop(0)
+for x in range(10):
+    counties.pop(0)
 print(counties)
 datafile = open("county list", "w+")
 
 for name in counties:
-    datafile.write(name + "\n")
+    if "county" not in name.lower():
+        name += " County"
+        datafile.write(name + "\n")
+    else:
+        datafile.write(name + "\n")

@@ -9,7 +9,7 @@ from selenium import webdriver
 
 #validates argument for later use
 def isValidCounty(county):
-    f = open("countylist", 'r')
+    f = open("county list", 'r')
     allnames = []
     name = f.readline()
     while name:
@@ -49,5 +49,5 @@ while line:
     line = unlistedprices.readline()
 datavalues = {"County Name" : county, "Housing Price" : housingprice}
 df = pd.DataFrame(datavalues)
-export_csv = df.to_csv (r'/Users/marcoshung/eclipse-workspace/CaliCountyAnalyzer/test.csv', index = None, header=True)
+export_csv = df.to_csv (r'/Users/marcoshung/eclipse-workspace/CaliCountyAnalyzer/housingdata.csv', index = None, header=True)
 #print(df)
